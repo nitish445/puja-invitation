@@ -467,7 +467,7 @@ body.capture .countdown.static { grid-template-columns: repeat(3, 1fr); }
 body.capture .countdown.static small { font-size: 1rem; }
 
 /* Footer + diyas */
-.footer { padding: 24px 10px 80px; }
+.footer { padding: 24px 10px 110px; }
 .diyas { display: flex; justify-content: center; gap: clamp(10px, 4vw, 26px); margin-bottom: 20px; }
 .diya {
   position: relative;
@@ -499,8 +499,8 @@ body.capture .countdown.static small { font-size: 1rem; }
 .muted { opacity: .85; margin-top: 4px; font-size: 1.1rem; }
 .credit {
   margin-top: 28px;
-  display: inline-block;
-  padding: 10px 20px;
+  display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 10px 22px;
   font-family: "Poppins", sans-serif;
   font-size: clamp(.72rem, 3.3vw, .86rem);
   white-space: nowrap;
@@ -508,15 +508,16 @@ body.capture .countdown.static small { font-size: 1rem; }
   color: var(--cream);
   background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
   border: 1.5px solid var(--gold);
-  border-radius: 999px;
+  border-radius: 18px;
   box-shadow: 0 6px 14px rgba(78, 10, 5, .3);
 }
+.credit-hi { font-family: "Kalam", sans-serif; font-size: 1.15em; padding-bottom: 4px; border-bottom: 1px solid rgba(233, 164, 23, .4); }
 .credit b { color: var(--gold-light); }
 
 /* Music button */
 .music {
   position: fixed;
-  right: 16px; bottom: 16px;
+  left: 16px; bottom: 16px;
   z-index: 30;
   width: 56px; height: 56px;
   border-radius: 50%;
