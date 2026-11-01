@@ -12,13 +12,24 @@ A one-page digital invitation with background music. It's plain HTML/CSS/JS, so 
 - Buttons for RSVP on WhatsApp, Call, Share and Add to Google Calendar
 - Personal greeting for a guest: add `?guest=Name` to the link, e.g. `index.html?guest=Sharma%20Parivar`
 - Music on/off button
+- **Download section** with the invitation as a **PDF** (`assets/invitation.pdf`) and a **video with music** (`assets/invitation.mp4`)
 
 ## Files
 - `index.html` — content (all text is here)
 - `style.css` — design
 - `app.js` — music, countdown, petals and links
 - `assets/song.mp3` — background song
-- `assets/vishnu.jpg` — artwork
+- `assets/vishnu.webp` — artwork
+- `assets/invitation.pdf`, `assets/invitation.mp4` — downloadable invitation
+- `tools/` — scripts that generate the PDF and video
+
+## Regenerating the PDF and video
+If you change the text, rebuild the downloads (needs Node + Playwright, ffmpeg and python3 with numpy):
+
+```bash
+node tools/make-pdf.js
+node tools/make-video.js
+```
 
 ## Publish free with GitHub Pages
 Repo **Settings → Pages → Deploy from a branch** → pick the branch and `/ (root)`.

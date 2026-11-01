@@ -10,7 +10,10 @@
   const musicBtn = $("musicBtn");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  document.body.classList.add("locked");
+  // ?capture=pdf | ?capture=video is used only when generating the PDF / video
+  const capture = new URLSearchParams(location.search).get("capture");
+  if (capture) document.body.classList.add("capture", "capture-" + capture);
+  else document.body.classList.add("locked");
 
   // ----- Optional guest name: ?guest=Sharma%20Parivar -----
   const guest = (new URLSearchParams(location.search).get("guest") || "").trim();
@@ -173,7 +176,7 @@
   }
 
   // ----- Golden sparkles floating up -----
-  if (!reduceMotion) {
+  if (!reduceMotion && capture !== "pdf") {
     const sp = $("sparkles");
     for (let i = 0; i < 22; i++) {
       const s = document.createElement("span");
@@ -218,8 +221,21 @@
     $("cdM").textContent = pad(Math.floor((s % 3600) / 60));
     $("cdS").textContent = pad(s % 60);
   }
-  tick();
-  timer = setInterval(tick, 1000);
+  if (capture) {
+    // A saved file can't count down, so show the three dates instead
+    const cd = $("countdown");
+    cd.classList.add("static");
+    cd.innerHTML = "<div><span>19</span><small>गुरुवार</small></div><div><span>20</span><small>शुक्रवार</small></div><div><span>21</span><small>शनिवार</small></div>";
+    cd.closest(".card").querySelector("h2").textContent = "पावन तिथियाँ";
+    cd.parentElement.querySelector(".cd-sub").textContent = "नवंबर 2026";
+    if (capture === "pdf") {
+      gate.remove();
+      document.querySelectorAll(".reveal").forEach((e) => e.classList.add("in"));
+    }
+  } else {
+    tick();
+    timer = setInterval(tick, 1000);
+  }
 
   // ----- Links -----
   const details =
