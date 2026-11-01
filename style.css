@@ -33,7 +33,7 @@ body.locked { overflow: hidden; height: 100vh; }
 
 /* =================== LANDING (DARSHAN) =================== */
 .gate {
-  --m: clamp(150px, min(56vw, 29vh), 300px);
+  --m: clamp(140px, min(54vw, 26vh), 300px);
   position: fixed; inset: 0;
   z-index: 40;
   overflow: hidden;
@@ -213,8 +213,8 @@ body.locked { overflow: hidden; height: 100vh; }
 .gate.open .gate-toran, .gate.open .gate-bell { opacity: 0; transform: translateY(-50px); }
 .gate.open .g-ledge { opacity: 0; transform: translateY(60px); }
 
-@media (max-height: 700px) {
-  .gate { --m: clamp(110px, min(44vw, 21vh), 180px); }
+@media (max-height: 800px) {
+  .gate { --m: clamp(110px, min(46vw, 23vh), 200px); }
   .g-content { padding-top: 86px; padding-bottom: max(10vh, 66px); }
   .g-medallion { margin: calc(var(--m) * .16) 0 calc(var(--m) * .14); }
   .g-divider { margin-bottom: 4px; }
