@@ -25,9 +25,11 @@ const SCROLL_PLAN = [
   [13.6, 15.0, ".card-dark"],
   [17.5, 19.0, ".timeline"],
   [24.0, 25.5, ".card:has(.venue)"],
-  [29.0, 30.6, "END"],
+  [29.5, 31.0, ".family"],
+  [35.0, 36.6, ".family .fam-group:nth-of-type(4)"],
+  [41.0, 42.6, "END"],
 ];
-const DURATION = 33.5;
+const DURATION = 45.5;
 
 (async () => {
   const browser = await chromium.launch();

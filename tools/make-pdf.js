@@ -19,14 +19,14 @@ const { chromium } = require("playwright");
   await page.waitForTimeout(2000);
   await page.evaluate(() => document.getAnimations().forEach((a) => { try { a.pause(); } catch (_) {} }));
 
-  // Split into 3 pages at section boundaries
+  // Split into pages at section boundaries
   const cuts = await page.evaluate(() => {
     const top = (sel) => Math.round(document.querySelector(sel).getBoundingClientRect().top + scrollY - 14);
     const end = Math.ceil(document.documentElement.scrollHeight);
-    return [0, top(".card-dark"), top(".card:has(.venue)"), end];
+    return [0, top(".card-dark"), top(".card:has(.venue)"), top(".family"), end];
   });
   const images = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < cuts.length - 1; i++) {
     const file = path.join(tmp, `p${i}.png`);
     await page.screenshot({ path: file, fullPage: true, clip: { x: 0, y: cuts[i], width: 432, height: cuts[i + 1] - cuts[i] } });
     images.push(file);

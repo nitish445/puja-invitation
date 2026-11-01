@@ -738,6 +738,59 @@ h2.mt { margin-top: 30px; }
 
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
 
+/* Family (nivedak) */
+.fam-intro { font-size: 1.1rem; opacity: .85; margin-top: -6px; }
+.fam-group {
+  position: relative;
+  margin-top: 22px;
+  padding: 26px 12px 14px;
+  border: 1.5px solid rgba(233, 164, 23, .7);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .7), rgba(255, 240, 210, .55));
+  box-shadow: 0 4px 12px rgba(125, 26, 16, .08);
+}
+.fam-title {
+  position: absolute; top: 0; left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 4px 20px;
+  white-space: nowrap;
+  font-family: "Yatra One", serif; font-size: 1.15rem;
+  color: var(--cream);
+  background: linear-gradient(135deg, var(--red), var(--maroon-dark));
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(125, 26, 16, .3);
+}
+.fam-couple {
+  display: flex; justify-content: center; align-items: center; column-gap: 7px;
+  padding: 7px 0;
+  white-space: nowrap;
+  font-size: clamp(.82rem, 3.85vw, 1.12rem); font-weight: 700; color: var(--maroon);
+}
+.fam-couple + .fam-couple { border-top: 1px dashed rgba(201, 52, 32, .25); }
+.fam-couple i { font-style: normal; color: var(--gold); font-size: .9em; }
+.elders .fam-couple { flex-direction: column; row-gap: 2px; font-family: "Yatra One", serif; font-weight: 400; font-size: 1.3rem; color: var(--red); }
+.elders .fam-couple i { line-height: 1; }
+.fam-names { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.fam-names span {
+  padding: 4px 13px;
+  font-size: 1.05rem; font-weight: 700; color: var(--maroon);
+  background: rgba(255, 255, 255, .75);
+  border: 1.5px solid rgba(201, 52, 32, .35);
+  border-radius: 999px;
+}
+.manuhar { font-size: 1.1rem; color: var(--red); line-height: 1.6; margin-bottom: 10px; }
+.fam-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.fam-chips span {
+  padding: 5px 14px;
+  font-size: 1.05rem; font-weight: 700; color: var(--maroon-dark);
+  background: radial-gradient(circle at 30% 30%, #fff6d2, #ffd36e);
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(125, 26, 16, .15);
+}
+.fam-chips span::before { content: "🌸 "; font-size: .85em; }
+
 /* Downloads */
 .dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
 .dl {
@@ -771,6 +824,7 @@ body.capture .downloads, body.capture .puja-actions, body.capture .puja-hint, bo
 /* PDF printers draw boxes around gradient-clipped text, so use solid colours there */
 body.capture-pdf .shimmer { background: none; color: var(--red); }
 body.capture-pdf .card-dark h2 { background: none; color: var(--gold-light); }
+body.capture .footer { padding-bottom: 36px; }
 body.capture .countdown.static { grid-template-columns: repeat(3, 1fr); }
 body.capture .countdown.static small { font-size: 1rem; }
 
