@@ -502,8 +502,9 @@ body.capture .countdown.static small { font-size: 1rem; }
   display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
   padding: 10px 22px;
   font-family: "Poppins", sans-serif;
-  font-size: clamp(.72rem, 3.3vw, .86rem);
+  font-size: clamp(.64rem, 2.85vw, .86rem);
   white-space: nowrap;
+  max-width: 100%;
   letter-spacing: .02em;
   color: var(--cream);
   background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));

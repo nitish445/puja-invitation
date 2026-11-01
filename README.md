@@ -35,4 +35,4 @@ node tools/make-video.js
 Repo **Settings → Pages → Deploy from a branch** → pick the branch and `/ (root)`.
 
 ---
-Created by **Nitish Kumar** || Software Engineer
+Designed & created by **Nitish Kumar** || Software Engineer
