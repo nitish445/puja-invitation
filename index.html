@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>सादर आमंत्रण · श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान कार्यक्रम</title>
+  <meta name="description" content="श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान कार्यक्रम · 19–21 नवंबर 2026 · ग्राम मुर्हीं। आप सभी सपरिवार सादर आमंत्रित हैं।" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="🪔 सादर आमंत्रण · श्री एकादशी महायज्ञ" />
+  <meta property="og:description" content="19–21 नवंबर 2026 · ग्राम मुर्हीं, हमारी जन्मभूमि। आप सभी सपरिवार सादर आमंत्रित हैं।" />
+  <meta property="og:image" content="assets/og.jpg" />
+  <meta name="theme-color" content="#f8b453" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Yatra+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="petals" aria-hidden="true"></div>
+
+  <!-- ===== Opening screen (a tap is needed before browsers allow music) ===== -->
+  <section id="gate" class="gate">
+    <div class="garland" aria-hidden="true"></div>
+    <div class="gate-inner">
+      <p class="mantra">॥ श्री गणेशाय नमः ॥</p>
+      <p class="mantra">॥ ॐ नमो भगवते वासुदेवाय नमः ॥</p>
+      <img class="gate-art" src="assets/vishnu.jpg" alt="भगवान श्री हरि विष्णु" />
+      <button id="openBtn" class="btn btn-red pulse">🪔 निमंत्रण खोलें</button>
+      <p class="hint">Tap to open the invitation 🎵</p>
+    </div>
+  </section>
+
+  <!-- ===== Invitation ===== -->
+  <main id="invite" class="invite" hidden>
+    <div class="garland" aria-hidden="true"></div>
+
+    <section class="hero">
+      <p class="mantra reveal">॥ श्री गणेशाय नमः ॥</p>
+      <p class="mantra reveal">॥ ॐ नमो भगवते वासुदेवाय नमः ॥</p>
+      <div class="art-wrap reveal">
+        <div class="halo" aria-hidden="true"></div>
+        <img class="art" src="assets/vishnu.jpg" alt="भगवान श्री हरि विष्णु" />
+      </div>
+    </section>
+
+    <section class="card reveal center">
+      <p class="sadar"><span class="diya-ico">🪔</span> सादर आमंत्रण <span class="diya-ico">🪔</span></p>
+      <h1 class="title">श्री एकादशी महायज्ञ<br /><span>एवं</span><br />वैदिक अनुष्ठान कार्यक्रम</h1>
+      <div class="divider"><span>✦</span></div>
+      <p class="body">
+        परमपिता परमेश्वर एवं भगवान श्री हरि विष्णु की असीम कृपा से आयोजित
+        पावन धार्मिक अनुष्ठान में आप सभी <b>सपरिवार सादर आमंत्रित</b> हैं।
+      </p>
+      <p class="body">
+        इस पावन अवसर पर आयोजित विभिन्न धार्मिक कार्यक्रमों में सम्मिलित होकर
+        पुण्य के भागी बनें तथा भगवान श्री हरि विष्णु का आशीर्वाद प्राप्त करें।
+      </p>
+      <p class="guest" id="guestLine" hidden></p>
+    </section>
+
+    <section class="card reveal center">
+      <h2>शुभ घड़ी में शेष</h2>
+      <div class="countdown" id="countdown">
+        <div><span id="cdD">0</span><small>दिन</small></div>
+        <div><span id="cdH">0</span><small>घंटे</small></div>
+        <div><span id="cdM">0</span><small>मिनट</small></div>
+        <div><span id="cdS">0</span><small>सेकंड</small></div>
+      </div>
+      <p class="cd-done" id="cdDone" hidden>🙏 पावन अनुष्ठान आरंभ हो चुका है — जय श्री हरि!</p>
+    </section>
+
+    <section class="card reveal">
+      <h2>कार्यक्रम विवरण</h2>
+      <ol class="timeline">
+        <li>
+          <div class="date"><b>19</b><small>नवंबर</small></div>
+          <div class="event">
+            <p class="day">गुरुवार · 19 नवंबर 2026</p>
+            <p class="what">वेदी निर्माण</p>
+          </div>
+        </li>
+        <li>
+          <div class="date"><b>20</b><small>नवंबर</small></div>
+          <div class="event">
+            <p class="day">शुक्रवार · 20 नवंबर 2026</p>
+            <p class="what">वेदी आवाहन एवं पूजन, कथा एवं धार्मिक अनुष्ठान</p>
+          </div>
+        </li>
+        <li>
+          <div class="date"><b>21</b><small>नवंबर</small></div>
+          <div class="event">
+            <p class="day">शनिवार · 21 नवंबर 2026</p>
+            <p class="what">वेदी पूजन, गोदान, हवन एवं पूर्णाहुति, भंडारा एवं प्रसाद वितरण</p>
+          </div>
+        </li>
+      </ol>
+      <div class="actions">
+        <a id="calBtn" class="btn btn-outline" target="_blank" rel="noopener">📆 कैलेंडर में जोड़ें</a>
+      </div>
+    </section>
+
+    <section class="card reveal center">
+      <h2>कार्यक्रम स्थल</h2>
+      <p class="venue">📍 ग्राम मुर्हीं, हमारी जन्मभूमि</p>
+
+      <h2 class="mt">संपर्क</h2>
+      <p class="phone"><a href="tel:+919572774629">📞 +91 95727 74629</a></p>
+      <div class="actions">
+        <a class="btn btn-red" id="waBtn" target="_blank" rel="noopener">💬 WhatsApp पर उत्तर दें</a>
+        <a class="btn btn-outline" href="tel:+919572774629">📞 कॉल करें</a>
+        <button class="btn btn-outline" id="shareBtn" type="button">🔗 शेयर करें</button>
+      </div>
+    </section>
+
+    <footer class="footer reveal">
+      <p class="jai">॥ जय श्री हरि ॥</p>
+      <p class="muted">आपकी उपस्थिति ही हमारा सौभाग्य है</p>
+      <p class="credit">Created by <b>Nitish Kumar</b> || Software Engineer</p>
+    </footer>
+  </main>
+
+  <button id="musicBtn" class="music" type="button" aria-label="संगीत चालू / बंद करें" hidden>
+    <span class="bars"><i></i><i></i><i></i><i></i></span>
+  </button>
+
+  <audio id="song" src="assets/song.mp3" preload="auto" loop></audio>
+  <script src="app.js"></script>
+</body>
+</html>
