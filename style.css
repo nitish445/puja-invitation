@@ -261,6 +261,74 @@ body.locked { overflow: hidden; height: 100vh; }
 .spin-slow { animation: spin 60s linear infinite; }
 .spin-rev { animation: spin 40s linear infinite reverse; }
 
+/* =================== AARTI & PUSHPANJALI =================== */
+.art { cursor: pointer; }
+.puja-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 4px; position: relative; z-index: 6; }
+.puja-btn { font-size: 1.12rem; padding: 12px 22px; }
+.puja-btn:disabled { opacity: .65; cursor: default; animation: none; }
+.puja-hint { font-size: .95rem; margin-top: 10px; opacity: .8; }
+
+.thali {
+  position: absolute; left: 0; top: 0;
+  z-index: 6;
+  width: 110px; height: 110px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s ease;
+  filter: drop-shadow(0 8px 10px rgba(78, 10, 5, .35));
+  will-change: transform;
+}
+.thali.on { opacity: 1; }
+.thali svg { width: 100%; height: 100%; overflow: visible; }
+.thali .thali-flame { bottom: 47%; width: 16px; height: 32px; margin-left: -8px; box-shadow: 0 0 26px 12px rgba(255, 170, 40, .65); }
+
+.offerings { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+.aarti-spark {
+  position: absolute;
+  width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 25%, #ffe27a 55%, rgba(255, 160, 30, 0) 75%);
+  box-shadow: 0 0 16px 8px rgba(255, 180, 50, .55);
+  animation: sparkfade 1.6s ease-out forwards;
+}
+.offer {
+  position: absolute; top: 0; left: 0;
+  animation: offerfall var(--dur, 1.6s) cubic-bezier(.35, .1, .6, 1) both, offerfade .8s ease var(--stay, 3s) forwards;
+}
+.offer.marigold {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: radial-gradient(circle, #b84a00 0 12%, transparent 14%), repeating-conic-gradient(#ff9d00 0 15deg, #ff7b00 15deg 30deg);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
+}
+.offer.marigold.y { background: radial-gradient(circle, #c27a00 0 12%, transparent 14%), repeating-conic-gradient(#ffd23f 0 15deg, #ffb703 15deg 30deg); }
+.offer.rose { width: 14px; height: 18px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, #ff5a6e, #c2132b); }
+.offer.emoji { font-size: 24px; line-height: 1; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 90px;
+  z-index: 45;
+  transform: translate(-50%, 20px);
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-family: "Yatra One", serif; font-size: 1.1rem;
+  color: var(--cream);
+  background: linear-gradient(135deg, var(--red), var(--maroon-dark));
+  border: 2px solid var(--gold);
+  box-shadow: 0 10px 24px rgba(78, 10, 5, .4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease, transform .4s ease;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@keyframes sparkfade { 0% { opacity: 1; transform: scale(1.1); } 60% { opacity: .7; } 100% { opacity: 0; transform: translateY(-18px) scale(.35); } }
+@keyframes offerfall {
+  from { transform: translate(var(--x0), -40px) rotate(0); }
+  to   { transform: translate(var(--x1), var(--y1)) rotate(var(--rot)); }
+}
+@keyframes offerfade { to { opacity: 0; } }
+
 /* =================== CARDS =================== */
 .card {
   position: relative;
@@ -459,7 +527,7 @@ h2.mt { margin-top: 30px; }
 .dl small { font-size: 1rem; opacity: .9; }
 
 /* Capture mode (used to generate the PDF and video) */
-body.capture .downloads, body.capture .music, body.capture #shareBtn, body.capture #calBtn { display: none !important; }
+body.capture .downloads, body.capture .puja-actions, body.capture .puja-hint, body.capture .music, body.capture #shareBtn, body.capture #calBtn { display: none !important; }
 /* PDF printers draw boxes around gradient-clipped text, so use solid colours there */
 body.capture-pdf .shimmer { background: none; color: var(--red); }
 body.capture-pdf .card-dark h2 { background: none; color: var(--gold-light); }

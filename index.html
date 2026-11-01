@@ -50,8 +50,45 @@
         <div class="rays" aria-hidden="true"></div>
         <svg class="mandala spin-slow" data-mandala="big" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
         <svg class="mandala mandala-inner spin-rev" data-mandala="small" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
-        <img class="art" src="assets/vishnu.webp" alt="भगवान श्री हरि विष्णु" />
+        <img class="art" id="deity" src="assets/vishnu.webp" alt="भगवान श्री हरि विष्णु" />
+        <div class="offerings" id="offerings" aria-hidden="true"></div>
+        <div class="thali" id="thali" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <radialGradient id="brass" cx="45%" cy="35%" r="70%">
+                <stop offset="0" stop-color="#fff1b8" />
+                <stop offset=".45" stop-color="#e9a417" />
+                <stop offset="1" stop-color="#8a5503" />
+              </radialGradient>
+              <linearGradient id="clay" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#f4a35a" />
+                <stop offset="1" stop-color="#a6420f" />
+              </linearGradient>
+            </defs>
+            <ellipse cx="60" cy="78" rx="56" ry="26" fill="#7a4a02" opacity=".35" />
+            <ellipse cx="60" cy="72" rx="56" ry="26" fill="url(#brass)" stroke="#7a4a02" stroke-width="1.5" />
+            <ellipse cx="60" cy="70" rx="45" ry="19" fill="#f6c95e" stroke="#b77a08" stroke-width="1.2" />
+            <g>
+              <circle cx="22" cy="70" r="6" fill="#ff8c00" /><circle cx="22" cy="70" r="2.2" fill="#b84a00" />
+              <circle cx="98" cy="70" r="6" fill="#ffc21a" /><circle cx="98" cy="70" r="2.2" fill="#c27a00" />
+              <circle cx="40" cy="86" r="5.5" fill="#ffc21a" /><circle cx="40" cy="86" r="2" fill="#c27a00" />
+              <circle cx="80" cy="86" r="5.5" fill="#ff8c00" /><circle cx="80" cy="86" r="2" fill="#b84a00" />
+            </g>
+            <ellipse cx="38" cy="66" rx="9" ry="5" fill="#b77a08" /><ellipse cx="38" cy="65" rx="7" ry="3.4" fill="#d6261a" />
+            <ellipse cx="82" cy="66" rx="9" ry="5" fill="#b77a08" /><ellipse cx="82" cy="65" rx="7" ry="3.4" fill="#fff7e0" />
+            <path d="M42 60 Q60 80 78 60 Q60 66 42 60 Z" fill="url(#clay)" stroke="#7a2e08" stroke-width="1" />
+            <ellipse cx="60" cy="60.5" rx="18" ry="3.6" fill="#c75a18" />
+            <path d="M74 58 q8 -3 10 -1 q-4 3 -10 3 z" fill="url(#clay)" />
+          </svg>
+          <i class="flame thali-flame"></i>
+        </div>
       </div>
+
+      <div class="puja-actions reveal">
+        <button id="aartiBtn" class="btn btn-gold puja-btn" type="button">🪔 आरती करें</button>
+        <button id="pushpBtn" class="btn btn-gold puja-btn" type="button">🌸 पुष्पांजलि</button>
+      </div>
+      <p class="puja-hint reveal">पुष्प अर्पित करने के लिए भगवान के चित्र को स्पर्श करें</p>
     </section>
 
     <section class="card reveal center">
@@ -159,6 +196,8 @@
       </p>
     </footer>
   </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <button id="musicBtn" class="music" type="button" aria-label="संगीत चालू / बंद करें" hidden>
     <span class="bars"><i></i><i></i><i></i><i></i></span>

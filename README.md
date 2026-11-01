@@ -12,6 +12,8 @@ A one-page digital invitation with background music. It's plain HTML/CSS/JS, so 
 - Buttons for RSVP on WhatsApp, Call, Share and Add to Google Calendar
 - Personal greeting for a guest: add `?guest=Name` to the link, e.g. `index.html?guest=Sharma%20Parivar`
 - Music on/off button
+- **Virtual आरती**: a lit aarti plate circles Lord Vishnu in the traditional order (feet ×4, navel ×2, face ×1, whole body ×3) with conch and bell sounds
+- **पुष्पांजलि**: shower flowers on Lord Vishnu with the button or by tapping his picture
 - **Download section** with the invitation as a **PDF** (`assets/invitation.pdf`) and a **video with music** (`assets/invitation.mp4`)
 
 ## Files

@@ -204,6 +204,181 @@
     els.forEach((e) => io.observe(e));
   }
 
+  // ----- Conch (shankh) sound, synthesised -----
+  function shankh(dur = 2.6, vol = 0.32) {
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === "suspended") actx.resume();
+      const t = actx.currentTime;
+      const out = actx.createGain();
+      out.gain.setValueAtTime(0.0001, t);
+      out.gain.exponentialRampToValueAtTime(vol, t + 0.45);
+      out.gain.setValueAtTime(vol, t + dur - 0.6);
+      out.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      const lp = actx.createBiquadFilter();
+      lp.type = "lowpass"; lp.frequency.value = 1700; lp.Q.value = 2.5;
+      const peak = actx.createBiquadFilter();
+      peak.type = "peaking"; peak.frequency.value = 900; peak.gain.value = 9; peak.Q.value = 2;
+      lp.connect(peak).connect(out).connect(actx.destination);
+      const vib = actx.createOscillator();
+      const vibAmt = actx.createGain();
+      vib.frequency.value = 5.2; vibAmt.gain.value = 2.2;
+      vib.connect(vibAmt);
+      [[1, "sawtooth", 0.55], [2, "sawtooth", 0.18], [3, "triangle", 0.12]].forEach(([mul, type, amp]) => {
+        const o = actx.createOscillator();
+        const g = actx.createGain();
+        o.type = type;
+        o.frequency.setValueAtTime(205 * mul, t);
+        o.frequency.exponentialRampToValueAtTime(233 * mul, t + 0.5);
+        vibAmt.connect(o.frequency);
+        g.gain.value = amp;
+        o.connect(g).connect(lp);
+        o.start(t); o.stop(t + dur + 0.05);
+      });
+      // breath noise
+      const len = Math.floor(actx.sampleRate * dur);
+      const buf = actx.createBuffer(1, len, actx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      const n = actx.createBufferSource();
+      const bp = actx.createBiquadFilter();
+      const ng = actx.createGain();
+      n.buffer = buf; bp.type = "bandpass"; bp.frequency.value = 1300; bp.Q.value = 1.2; ng.gain.value = 0.05;
+      n.connect(bp).connect(ng).connect(out);
+      n.start(t);
+      vib.start(t); vib.stop(t + dur + 0.05);
+    } catch (_) { /* audio not available */ }
+  }
+
+  // ----- Virtual Aarti -----
+  const wrap = document.querySelector(".art-wrap");
+  const thali = $("thali");
+  const offerings = $("offerings");
+  const aartiBtn = $("aartiBtn");
+  const toast = $("toast");
+  let toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+  }
+  function ringBells() {
+    document.querySelectorAll(".bell").forEach((b) => {
+      b.classList.remove("ring"); void b.offsetWidth; b.classList.add("ring");
+    });
+  }
+  // Traditional order: 4 circles at the feet, 2 at the navel, 1 at the face, then 3 around the whole body.
+  // Values are fractions of the picture's width/height.
+  const AARTI_PATH = [
+    { cx: 0.5, cy: 0.84, rx: 0.13, ry: 0.06, turns: 4, dur: 3.2 },
+    { cx: 0.5, cy: 0.52, rx: 0.12, ry: 0.06, turns: 2, dur: 1.8 },
+    { cx: 0.5, cy: 0.25, rx: 0.11, ry: 0.06, turns: 1, dur: 1.1 },
+    { cx: 0.5, cy: 0.5, rx: 0.36, ry: 0.36, turns: 3, dur: 4.8 },
+  ];
+  const MOVE = 0.45; // seconds to glide between stages
+  const aartiTotal = AARTI_PATH.reduce((s, p) => s + p.dur + MOVE, 0);
+  const ptOn = (p, frac) => {
+    const a = frac * p.turns * Math.PI * 2; // clockwise from the bottom
+    return [p.cx - Math.sin(a) * p.rx, p.cy + Math.cos(a) * p.ry];
+  };
+  function aartiPos(t) {
+    let prev = [0.5, 1.05];
+    for (const p of AARTI_PATH) {
+      const start = ptOn(p, 0);
+      if (t < MOVE) {
+        const k = t / MOVE, e = k * k * (3 - 2 * k);
+        return [prev[0] + (start[0] - prev[0]) * e, prev[1] + (start[1] - prev[1]) * e];
+      }
+      t -= MOVE;
+      if (t < p.dur) return ptOn(p, t / p.dur);
+      t -= p.dur;
+      prev = ptOn(p, 1);
+    }
+    return prev;
+  }
+  let aartiRunning = false;
+  aartiBtn.addEventListener("click", () => {
+    if (aartiRunning) return;
+    aartiRunning = true;
+    aartiBtn.disabled = true;
+    const prevVol = song.volume;
+    song.volume = Math.min(prevVol, 0.3);
+    shankh();
+    thali.classList.add("on");
+    const t0 = performance.now();
+    let lastSpark = 0, lastBell = 0, bellNo = 0;
+    function step(now) {
+      const t = (now - t0) / 1000;
+      const r = wrap.getBoundingClientRect();
+      const [fx, fy] = aartiPos(Math.min(t, aartiTotal));
+      const x = fx * r.width, y = fy * r.height;
+      thali.style.transform = `translate(${x - 55}px, ${y - 55}px)`;
+      if (now - lastSpark > 35) {
+        lastSpark = now;
+        const s = document.createElement("i");
+        s.className = "aarti-spark";
+        s.style.left = x + (Math.random() * 12 - 6) + "px";
+        s.style.top = y - 22 + (Math.random() * 10 - 5) + "px";
+        offerings.appendChild(s);
+        setTimeout(() => s.remove(), 1650);
+      }
+      if (t > 1.2 && t - lastBell > 0.55 && t < aartiTotal) {
+        lastBell = t;
+        bell(bellNo++ % 2 ? 1180 : 990, 0.16);
+        if (bellNo % 3 === 0) ringBells();
+      }
+      if (t < aartiTotal + 0.3) requestAnimationFrame(step);
+      else {
+        thali.classList.remove("on");
+        shankh(2, 0.25);
+        burstPetals(20);
+        showToast("🙏 आरती सम्पन्न — जय श्री हरि!");
+        setTimeout(() => {
+          song.volume = prevVol;
+          aartiRunning = false;
+          aartiBtn.disabled = false;
+        }, 1200);
+      }
+    }
+    requestAnimationFrame(step);
+  });
+
+  // ----- Pushpanjali (flower offering) -----
+  const FLOWERS = ["marigold", "marigold y", "rose", "marigold", "rose", "emoji"];
+  const EMOJI = ["🌸", "🌺", "🌼", "🪷"];
+  let lastPushpToast = 0;
+  function pushpanjali(n = 22) {
+    const r = wrap.getBoundingClientRect();
+    if (offerings.childElementCount > 160) return;
+    bell(1320, 0.12);
+    for (let i = 0; i < n; i++) {
+      const f = document.createElement("span");
+      const kind = FLOWERS[(Math.random() * FLOWERS.length) | 0];
+      f.className = "offer " + kind;
+      if (kind === "emoji") f.textContent = EMOJI[(Math.random() * EMOJI.length) | 0];
+      const x0 = r.width * (0.25 + Math.random() * 0.5);
+      const x1 = x0 + (Math.random() * 80 - 40);
+      // land around the lap and feet
+      const y1 = r.height * (0.62 + Math.random() * 0.3);
+      f.style.setProperty("--x0", x0 + "px");
+      f.style.setProperty("--x1", x1 + "px");
+      f.style.setProperty("--y1", y1 + "px");
+      f.style.setProperty("--rot", Math.random() * 540 - 270 + "deg");
+      f.style.setProperty("--dur", 1.3 + Math.random() * 0.9 + "s");
+      f.style.setProperty("--stay", 2.6 + Math.random() * 1.2 + "s");
+      f.style.animationDelay = Math.random() * 0.6 + "s, " + (2.6 + Math.random() * 1.2) + "s";
+      offerings.appendChild(f);
+      setTimeout(() => f.remove(), 5200);
+    }
+    if (Date.now() - lastPushpToast > 4000) {
+      lastPushpToast = Date.now();
+      showToast("🌸 पुष्पांजलि अर्पित — जय श्री हरि 🙏");
+    }
+  }
+  $("pushpBtn").addEventListener("click", () => pushpanjali(26));
+  $("deity").addEventListener("click", () => pushpanjali(12));
+
   // ----- Countdown -----
   const pad = (n) => String(n).padStart(2, "0");
   let timer;
