@@ -9,7 +9,7 @@
   <meta property="og:title" content="🪔 सादर आमंत्रण · श्री एकादशी महायज्ञ" />
   <meta property="og:description" content="19–21 नवंबर 2026 · ग्राम मुर्हीं, हमारी जन्मभूमि। आप सभी सपरिवार सादर आमंत्रित हैं।" />
   <meta property="og:image" content="assets/og.jpg" />
-  <meta name="theme-color" content="#f8b453" />
+  <meta name="theme-color" content="#6b0f0a" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,37 +17,46 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="sparkles" aria-hidden="true"></div>
   <div id="petals" aria-hidden="true"></div>
 
-  <!-- ===== Opening screen (a tap is needed before browsers allow music) ===== -->
+  <!-- ===== Temple doors (tap to open — browsers need a tap before music) ===== -->
   <section id="gate" class="gate">
-    <div class="garland" aria-hidden="true"></div>
-    <div class="gate-inner">
-      <p class="mantra">॥ श्री गणेशाय नमः ॥</p>
-      <p class="mantra">॥ ॐ नमो भगवते वासुदेवाय नमः ॥</p>
-      <img class="gate-art" src="assets/vishnu.jpg" alt="भगवान श्री हरि विष्णु" />
-      <button id="openBtn" class="btn btn-red pulse">🪔 निमंत्रण खोलें</button>
+    <div class="door left"><div class="door-panel"></div><div class="door-panel"></div><span class="knocker"></span></div>
+    <div class="door right"><div class="door-panel"></div><div class="door-panel"></div><span class="knocker"></span></div>
+
+    <div class="seal">
+      <p class="seal-mantra">॥ श्री गणेशाय नमः ॥</p>
+      <div class="seal-om"><svg class="mandala spin-slow" data-mandala="gate" viewBox="-100 -100 200 200"></svg><span>ॐ</span></div>
+      <p class="seal-title">सादर आमंत्रण</p>
+      <p class="seal-guest" id="gateGuest" hidden></p>
+      <button id="openBtn" class="btn btn-gold pulse" type="button">🔔 द्वार खोलें</button>
       <p class="hint">Tap to open the invitation 🎵</p>
     </div>
   </section>
 
   <!-- ===== Invitation ===== -->
-  <main id="invite" class="invite" hidden>
-    <div class="garland" aria-hidden="true"></div>
+  <main id="invite" class="invite">
+    <div class="toran" id="toran" aria-hidden="true"></div>
+    <button class="bell bell-left" type="button" aria-label="घंटी बजाएं"><svg viewBox="0 0 60 120"><use href="#bellShape" /></svg></button>
+    <button class="bell bell-right" type="button" aria-label="घंटी बजाएं"><svg viewBox="0 0 60 120"><use href="#bellShape" /></svg></button>
 
     <section class="hero">
       <p class="mantra reveal">॥ श्री गणेशाय नमः ॥</p>
       <p class="mantra reveal">॥ ॐ नमो भगवते वासुदेवाय नमः ॥</p>
       <div class="art-wrap reveal">
-        <div class="halo" aria-hidden="true"></div>
-        <img class="art" src="assets/vishnu.jpg" alt="भगवान श्री हरि विष्णु" />
+        <div class="rays" aria-hidden="true"></div>
+        <svg class="mandala spin-slow" data-mandala="big" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+        <svg class="mandala mandala-inner spin-rev" data-mandala="small" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+        <img class="art" src="assets/vishnu.webp" alt="भगवान श्री हरि विष्णु" />
       </div>
     </section>
 
     <section class="card reveal center">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <p class="sadar"><span class="diya-ico">🪔</span> सादर आमंत्रण <span class="diya-ico">🪔</span></p>
-      <h1 class="title">श्री एकादशी महायज्ञ<br /><span>एवं</span><br />वैदिक अनुष्ठान कार्यक्रम</h1>
-      <div class="divider"><span>✦</span></div>
+      <h1 class="title"><span class="shimmer">श्री एकादशी महायज्ञ</span><small>एवं</small><span class="shimmer">वैदिक अनुष्ठान कार्यक्रम</span></h1>
+      <div class="divider"><span>❀</span></div>
       <p class="body">
         परमपिता परमेश्वर एवं भगवान श्री हरि विष्णु की असीम कृपा से आयोजित
         पावन धार्मिक अनुष्ठान में आप सभी <b>सपरिवार सादर आमंत्रित</b> हैं।
@@ -59,38 +68,41 @@
       <p class="guest" id="guestLine" hidden></p>
     </section>
 
-    <section class="card reveal center">
+    <section class="card card-dark reveal center">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <h2>शुभ घड़ी में शेष</h2>
       <div class="countdown" id="countdown">
         <div><span id="cdD">0</span><small>दिन</small></div>
-        <div><span id="cdH">0</span><small>घंटे</small></div>
-        <div><span id="cdM">0</span><small>मिनट</small></div>
-        <div><span id="cdS">0</span><small>सेकंड</small></div>
+        <div><span id="cdH">00</span><small>घंटे</small></div>
+        <div><span id="cdM">00</span><small>मिनट</small></div>
+        <div><span id="cdS">00</span><small>सेकंड</small></div>
       </div>
       <p class="cd-done" id="cdDone" hidden>🙏 पावन अनुष्ठान आरंभ हो चुका है — जय श्री हरि!</p>
+      <p class="cd-sub">19 – 21 नवंबर 2026</p>
     </section>
 
     <section class="card reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <h2>कार्यक्रम विवरण</h2>
       <ol class="timeline">
-        <li>
+        <li class="reveal">
           <div class="date"><b>19</b><small>नवंबर</small></div>
           <div class="event">
-            <p class="day">गुरुवार · 19 नवंबर 2026</p>
+            <p class="day">प्रथम दिवस · गुरुवार</p>
             <p class="what">वेदी निर्माण</p>
           </div>
         </li>
-        <li>
+        <li class="reveal">
           <div class="date"><b>20</b><small>नवंबर</small></div>
           <div class="event">
-            <p class="day">शुक्रवार · 20 नवंबर 2026</p>
+            <p class="day">द्वितीय दिवस · शुक्रवार</p>
             <p class="what">वेदी आवाहन एवं पूजन, कथा एवं धार्मिक अनुष्ठान</p>
           </div>
         </li>
-        <li>
+        <li class="reveal">
           <div class="date"><b>21</b><small>नवंबर</small></div>
           <div class="event">
-            <p class="day">शनिवार · 21 नवंबर 2026</p>
+            <p class="day">तृतीय दिवस · शनिवार</p>
             <p class="what">वेदी पूजन, गोदान, हवन एवं पूर्णाहुति, भंडारा एवं प्रसाद वितरण</p>
           </div>
         </li>
@@ -101,8 +113,11 @@
     </section>
 
     <section class="card reveal center">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <h2>कार्यक्रम स्थल</h2>
-      <p class="venue">📍 ग्राम मुर्हीं, हमारी जन्मभूमि</p>
+      <div class="venue-badge">🛕</div>
+      <p class="venue">ग्राम मुर्हीं</p>
+      <p class="venue-sub">हमारी जन्मभूमि</p>
 
       <h2 class="mt">संपर्क</h2>
       <p class="phone"><a href="tel:+919572774629">📞 +91 95727 74629</a></p>
@@ -114,7 +129,14 @@
     </section>
 
     <footer class="footer reveal">
-      <p class="jai">॥ जय श्री हरि ॥</p>
+      <div class="diyas" aria-hidden="true">
+        <div class="diya"><i class="flame"></i></div>
+        <div class="diya"><i class="flame"></i></div>
+        <div class="diya"><i class="flame"></i></div>
+        <div class="diya"><i class="flame"></i></div>
+        <div class="diya"><i class="flame"></i></div>
+      </div>
+      <p class="jai shimmer">॥ जय श्री हरि ॥</p>
       <p class="muted">आपकी उपस्थिति ही हमारा सौभाग्य है</p>
       <p class="credit">Created by <b>Nitish Kumar</b> || Software Engineer</p>
     </footer>
@@ -123,6 +145,27 @@
   <button id="musicBtn" class="music" type="button" aria-label="संगीत चालू / बंद करें" hidden>
     <span class="bars"><i></i><i></i><i></i><i></i></span>
   </button>
+
+  <!-- Temple bell drawing (reused) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="goldGrad" x1="0" x2="1">
+        <stop offset="0" stop-color="#a86b05" />
+        <stop offset=".35" stop-color="#ffd970" />
+        <stop offset=".6" stop-color="#e9a417" />
+        <stop offset="1" stop-color="#8a5503" />
+      </linearGradient>
+      <g id="bellShape">
+        <line x1="30" y1="0" x2="30" y2="40" stroke="#8e1f14" stroke-width="2.5" />
+        <circle cx="30" cy="20" r="3.5" fill="#ff7a1a" /><circle cx="30" cy="30" r="3.5" fill="#ffc21a" />
+        <circle cx="30" cy="42" r="5" fill="none" stroke="url(#goldGrad)" stroke-width="3" />
+        <path d="M30 46 C18 46 15 58 14 72 C13 84 8 90 4 94 L56 94 C52 90 47 84 46 72 C45 58 42 46 30 46 Z" fill="url(#goldGrad)" stroke="#7a4a02" stroke-width="1.2" />
+        <path d="M10 88 L50 88" stroke="#7a4a02" stroke-width="1.5" opacity=".6" />
+        <path d="M17 66 Q30 70 43 66" stroke="#fff3c4" stroke-width="1.5" fill="none" opacity=".7" />
+        <circle cx="30" cy="100" r="6" fill="url(#goldGrad)" stroke="#7a4a02" stroke-width="1" />
+      </g>
+    </defs>
+  </svg>
 
   <audio id="song" src="assets/song.mp3" preload="auto" loop></audio>
   <script src="app.js"></script>
