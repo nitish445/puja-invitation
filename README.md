@@ -24,7 +24,7 @@ A one-page digital invitation with background music. It's plain HTML/CSS/JS, so 
 - `tools/` — scripts that generate the PDF and video
 
 ## Regenerating the PDF and video
-If you change the text, rebuild the downloads (needs Node + Playwright, ffmpeg and python3 with numpy):
+If you change the text, rebuild the downloads (needs Node + Playwright, ffmpeg and python3 with numpy and Pillow):
 
 ```bash
 node tools/make-pdf.js
