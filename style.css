@@ -512,7 +512,6 @@ body.capture .countdown.static small { font-size: 1rem; }
   border-radius: 18px;
   box-shadow: 0 6px 14px rgba(78, 10, 5, .3);
 }
-.credit-hi { font-family: "Kalam", sans-serif; font-size: 1.15em; padding-bottom: 4px; border-bottom: 1px solid rgba(233, 164, 23, .4); }
 .credit b { color: var(--gold-light); }
 
 /* Music button */
