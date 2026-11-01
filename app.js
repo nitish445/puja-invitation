@@ -90,7 +90,25 @@
   let rt;
   window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(buildAll, 150); });
 
-  // golden sparkles drifting over the doors
+  // glowing lanterns floating up on the landing page
+  if (!reduceMotion && $("lanterns")) {
+    for (let i = 0; i < 14; i++) {
+      const l = document.createElement("span");
+      l.className = "lantern";
+      const dur = 11 + Math.random() * 10;
+      const near = Math.random() < 0.35;
+      l.style.left = 4 + Math.random() * 92 + "%";
+      l.style.animationDuration = (near ? dur * 0.8 : dur) + "s";
+      l.style.animationDelay = -Math.random() * dur + "s";
+      l.style.setProperty("--s", near ? 1.2 + Math.random() * 0.4 : 0.5 + Math.random() * 0.4);
+      l.style.setProperty("--o", near ? 0.95 : 0.55);
+      l.style.setProperty("--sway", Math.random() * 60 - 30 + "px");
+      if (!near) l.style.filter = "blur(1px)";
+      $("lanterns").appendChild(l);
+    }
+  }
+
+  // golden sparkles drifting over the landing page
   if (!reduceMotion && $("gateSparks")) {
     for (let i = 0; i < 16; i++) {
       const s = document.createElement("span");
@@ -163,7 +181,7 @@
       observeReveals();
       burstPetals(30);
     }, 700);
-    setTimeout(() => gate.remove(), 2200);
+    setTimeout(() => gate.remove(), 1900);
     if (!reduceMotion) setInterval(() => burstPetals(2), 1600);
   });
 
