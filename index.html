@@ -23,10 +23,12 @@
   <!-- ===== Temple doors (tap to open — browsers need a tap before music) ===== -->
   <section id="gate" class="gate">
     <div class="door left">
-      <div class="door-panel top"></div><div class="door-panel"></div>
+      <div class="door-panel top"><i class="emblem shankh"></i></div>
+      <div class="door-panel"><i class="emblem padma"></i></div>
     </div>
     <div class="door right">
-      <div class="door-panel top"></div><div class="door-panel"></div>
+      <div class="door-panel top"><i class="emblem chakra"></i></div>
+      <div class="door-panel"><i class="emblem gada"></i></div>
     </div>
     <div class="seam" aria-hidden="true"></div>
 
@@ -51,12 +53,20 @@
       <path d="M0,182 C0,142 28,134 48,140 C54,112 88,104 108,116 C118,90 156,84 172,100 C182,86 194,82 200,72 C206,82 218,86 228,100 C244,84 282,90 292,116 C312,104 346,112 352,140 C372,134 400,142 400,182" fill="none" stroke="#3d0703" stroke-width="11" vector-effect="non-scaling-stroke" opacity=".6" />
       <path d="M0,182 C0,142 28,134 48,140 C54,112 88,104 108,116 C118,90 156,84 172,100 C182,86 194,82 200,72 C206,82 218,86 228,100 C244,84 282,90 292,116 C312,104 346,112 352,140 C372,134 400,142 400,182" fill="none" stroke="url(#archGold)" stroke-width="7" vector-effect="non-scaling-stroke" />
     </svg>
+    <div class="pillar left" aria-hidden="true"></div>
+    <div class="pillar right" aria-hidden="true"></div>
     <div class="toran gate-toran" id="gateToran" aria-hidden="true"></div>
+    <svg class="gate-bell left" viewBox="0 0 60 120" aria-hidden="true"><use href="#bellShape" /></svg>
+    <svg class="gate-bell right" viewBox="0 0 60 120" aria-hidden="true"><use href="#bellShape" /></svg>
 
     <div class="threshold" aria-hidden="true">
       <div class="diya"><i class="flame"></i></div>
       <div class="diya"><i class="flame"></i></div>
-      <span class="threshold-gap"></span>
+      <div class="shubh">
+        <span>शुभ</span>
+        <svg viewBox="0 0 100 100"><g fill="none" stroke="#e9332a" stroke-width="9" stroke-linecap="square"><path d="M50 50V14H82M50 50H86V82M50 50V86H18M50 50H14V18" /></g><g fill="#e9332a"><circle cx="68" cy="32" r="6" /><circle cx="68" cy="68" r="6" /><circle cx="32" cy="68" r="6" /><circle cx="32" cy="32" r="6" /></g></svg>
+        <span>लाभ</span>
+      </div>
       <div class="diya"><i class="flame"></i></div>
       <div class="diya"><i class="flame"></i></div>
     </div>
