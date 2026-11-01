@@ -117,7 +117,7 @@ const DURATION = 33.5;
         window.__spawnPetals(30, T);
       }, T);
     }
-    if (opened && !gateHidden && T >= DOORS_OPEN + 2.0) {
+    if (opened && !gateHidden && T >= DOORS_OPEN + 2.3) {
       gateHidden = true;
       await page.evaluate(() => { document.getElementById("gate").style.display = "none"; });
     }

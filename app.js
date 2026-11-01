@@ -58,8 +58,7 @@
   });
 
   // ----- Toran: marigold garland with mango leaves -----
-  const toran = $("toran");
-  function buildToran() {
+  function buildToran(toran) {
     const W = toran.clientWidth;
     const segs = Math.max(4, Math.round(W / 72));
     const sw = W / segs;
@@ -85,9 +84,25 @@
     }
     toran.innerHTML = html;
   }
-  buildToran();
+  const torans = [$("toran"), $("gateToran")];
+  const buildAll = () => torans.forEach((t) => t && t.isConnected && buildToran(t));
+  buildAll();
   let rt;
-  window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(buildToran, 150); });
+  window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(buildAll, 150); });
+
+  // golden sparkles drifting over the doors
+  if (!reduceMotion && $("gateSparks")) {
+    for (let i = 0; i < 16; i++) {
+      const s = document.createElement("span");
+      s.className = "spark";
+      const dur = 6 + Math.random() * 6;
+      s.style.left = Math.random() * 100 + "%";
+      s.style.animationDuration = dur + "s";
+      s.style.animationDelay = -Math.random() * dur + "s";
+      s.style.setProperty("--drift", (Math.random() * 60 - 30) + "px");
+      $("gateSparks").appendChild(s);
+    }
+  }
 
   // ----- Temple bell sound (synthesised) -----
   let actx;
@@ -148,7 +163,7 @@
       observeReveals();
       burstPetals(30);
     }, 700);
-    setTimeout(() => gate.remove(), 2000);
+    setTimeout(() => gate.remove(), 2200);
     if (!reduceMotion) setInterval(() => burstPetals(2), 1600);
   });
 

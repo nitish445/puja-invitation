@@ -22,13 +22,57 @@
 
   <!-- ===== Temple doors (tap to open — browsers need a tap before music) ===== -->
   <section id="gate" class="gate">
-    <div class="door left"><div class="door-panel"></div><div class="door-panel"></div><span class="knocker"></span></div>
-    <div class="door right"><div class="door-panel"></div><div class="door-panel"></div><span class="knocker"></span></div>
+    <div class="door left">
+      <div class="door-panel top"></div><div class="door-panel"></div>
+    </div>
+    <div class="door right">
+      <div class="door-panel top"></div><div class="door-panel"></div>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+
+    <!-- Temple arch -->
+    <svg class="gate-arch" viewBox="0 0 400 240" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <pattern id="studs" width="16" height="16" patternUnits="userSpaceOnUse">
+          <circle cx="8" cy="8" r="1.7" fill="#ffd970" opacity=".6" />
+        </pattern>
+        <linearGradient id="archFill" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#2a0402" /><stop offset="1" stop-color="#6b0f0a" />
+        </linearGradient>
+        <linearGradient id="archGold" x1="0" x2="1">
+          <stop offset="0" stop-color="#a86b05" /><stop offset=".3" stop-color="#ffd970" />
+          <stop offset=".5" stop-color="#e9a417" /><stop offset=".7" stop-color="#fff1b8" />
+          <stop offset="1" stop-color="#a86b05" />
+        </linearGradient>
+      </defs>
+      <path d="M0,240 L0,182 C0,142 28,134 48,140 C54,112 88,104 108,116 C118,90 156,84 172,100 C182,86 194,82 200,72 C206,82 218,86 228,100 C244,84 282,90 292,116 C312,104 346,112 352,140 C372,134 400,142 400,182 L400,240 L400,0 L0,0 Z" fill="url(#archFill)" />
+      <path d="M0,240 L0,182 C0,142 28,134 48,140 C54,112 88,104 108,116 C118,90 156,84 172,100 C182,86 194,82 200,72 C206,82 218,86 228,100 C244,84 282,90 292,116 C312,104 346,112 352,140 C372,134 400,142 400,182 L400,240 L400,0 L0,0 Z" fill="url(#studs)" />
+      <path d="M0,194 C2,154 30,148 50,152 C58,126 90,118 110,128 C122,104 156,98 172,112 C184,100 194,96 200,86 C206,96 216,100 228,112 C244,98 278,104 290,128 C310,118 342,126 350,152 C370,148 398,154 400,194" fill="none" stroke="#c93420" stroke-width="3" vector-effect="non-scaling-stroke" />
+      <path d="M0,182 C0,142 28,134 48,140 C54,112 88,104 108,116 C118,90 156,84 172,100 C182,86 194,82 200,72 C206,82 218,86 228,100 C244,84 282,90 292,116 C312,104 346,112 352,140 C372,134 400,142 400,182" fill="none" stroke="#3d0703" stroke-width="11" vector-effect="non-scaling-stroke" opacity=".6" />
+      <path d="M0,182 C0,142 28,134 48,140 C54,112 88,104 108,116 C118,90 156,84 172,100 C182,86 194,82 200,72 C206,82 218,86 228,100 C244,84 282,90 292,116 C312,104 346,112 352,140 C372,134 400,142 400,182" fill="none" stroke="url(#archGold)" stroke-width="7" vector-effect="non-scaling-stroke" />
+    </svg>
+    <div class="toran gate-toran" id="gateToran" aria-hidden="true"></div>
+
+    <div class="threshold" aria-hidden="true">
+      <div class="diya"><i class="flame"></i></div>
+      <div class="diya"><i class="flame"></i></div>
+      <span class="threshold-gap"></span>
+      <div class="diya"><i class="flame"></i></div>
+      <div class="diya"><i class="flame"></i></div>
+    </div>
+    <div class="gate-sparks" id="gateSparks" aria-hidden="true"></div>
+    <div class="gate-flash" aria-hidden="true"></div>
 
     <div class="seal">
       <p class="seal-mantra">॥ श्री गणेशाय नमः ॥</p>
-      <div class="seal-om"><svg class="mandala spin-slow" data-mandala="gate" viewBox="-100 -100 200 200"></svg><span>ॐ</span></div>
+      <div class="seal-om">
+        <div class="seal-rays" aria-hidden="true"></div>
+        <svg class="mandala spin-slow" data-mandala="gate" viewBox="-100 -100 200 200"></svg>
+        <span>ॐ</span>
+      </div>
       <p class="seal-title">सादर आमंत्रण</p>
+      <p class="seal-sub">श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान</p>
+      <p class="seal-date"><span>✦</span> 19 – 21 नवंबर 2026 <span>✦</span></p>
       <p class="seal-guest" id="gateGuest" hidden></p>
       <button id="openBtn" class="btn btn-gold pulse" type="button">🔔 द्वार खोलें</button>
       <p class="hint">Tap to open the invitation 🎵</p>
