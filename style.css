@@ -639,6 +639,84 @@ h2.mt { margin-top: 30px; }
 
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
 
+/* Ekadashi mahatmya */
+.shloka {
+  font-family: "Tiro Devanagari Sanskrit", "Yatra One", serif;
+  font-size: clamp(1.5rem, 6.5vw, 2rem);
+  color: var(--red);
+  margin-top: -4px;
+}
+.shloka-mean { font-size: 1.05rem; color: var(--maroon); opacity: .85; margin-top: 2px; }
+.mh-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 20px; text-align: left; }
+.mh {
+  position: relative;
+  padding: 16px 16px 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .8), rgba(255, 238, 205, .6));
+  border: 1.5px solid rgba(233, 164, 23, .65);
+  box-shadow: 0 4px 12px rgba(125, 26, 16, .08);
+}
+.mh-ico {
+  float: left;
+  width: 44px; height: 44px; margin: 0 12px 4px 0;
+  display: grid; place-items: center;
+  font-size: 1.4rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff1b8, var(--gold) 75%);
+  box-shadow: 0 0 0 3px #fff3dc, 0 0 0 5px rgba(201, 52, 32, .5);
+}
+.mh b { display: block; font-family: "Yatra One", serif; font-weight: 400; font-size: 1.2rem; color: var(--red); line-height: 1.3; margin: 2px 0 4px; }
+.mh p { font-size: 1.02rem; line-height: 1.65; clear: none; }
+
+/* Jap mala */
+.mala {
+  position: relative;
+  display: block;
+  width: min(78vw, 310px); aspect-ratio: 1;
+  margin: 14px auto 6px;
+  padding: 0; border: 0; background: none;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.mala:focus-visible { outline: 3px solid var(--gold); outline-offset: 6px; }
+.mala svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 4px 6px rgba(110, 26, 16, .25)); }
+#malaRing { transform-origin: 0 0; transition: transform .32s cubic-bezier(.3, 1.5, .5, 1); }
+#malaRing circle { transition: fill .2s ease; }
+#malaRing .cur { filter: drop-shadow(0 0 4px #ffcf4a); }
+.mala-center {
+  position: absolute; left: 50%; top: 50%;
+  width: 52%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #fff9e8, #ffe2a6 70%, #f6c25c);
+  box-shadow: 0 0 0 3px var(--gold), 0 0 0 6px #fff3dc, 0 0 0 8px rgba(201, 52, 32, .45), inset 0 0 18px rgba(183, 122, 8, .35);
+  color: var(--maroon-dark);
+  transition: transform .15s ease;
+}
+.mala:active .mala-center { transform: translate(-50%, -50%) scale(.95); }
+.mala-om { font-family: "Tiro Devanagari Sanskrit", serif; font-size: 1.7rem; line-height: 1; color: var(--red); }
+.mala-center b { font: 600 clamp(1.8rem, 9vw, 2.5rem)/1.1 "Poppins", sans-serif; }
+.mala-center small { font: 600 .85rem "Poppins", sans-serif; opacity: .7; }
+.mala.done .mala-center { animation: malaDone 1s ease; }
+.mala-mantra { font-family: "Yatra One", serif; font-size: clamp(1.25rem, 5.5vw, 1.6rem); color: var(--red); transition: transform .15s ease, color .15s ease; }
+.mala-mantra.pop { transform: scale(1.08); color: #e2560f; }
+.mala-stats { margin-top: 6px; font-size: 1.05rem; color: var(--maroon); }
+.mala-stats b { font-family: "Poppins", sans-serif; color: var(--red); }
+.mala-stats i { font-style: normal; color: var(--gold); margin: 0 8px; }
+.mala-reset { margin-top: 14px; font-size: .95rem; padding: 8px 18px; }
+.om-float {
+  position: absolute; left: 50%; top: 40%;
+  pointer-events: none;
+  font-family: "Tiro Devanagari Sanskrit", serif; font-size: 1.6rem; color: #e9a417;
+  text-shadow: 0 0 10px rgba(255, 200, 80, .8);
+  animation: omfloat 1.2s ease-out forwards;
+}
+@keyframes omfloat { from { opacity: 1; transform: translate(-50%, 0) scale(.8); } to { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), -120px) scale(1.4); } }
+@keyframes malaDone { 0% { box-shadow: 0 0 0 3px var(--gold), 0 0 0 6px #fff3dc, 0 0 0 8px rgba(201, 52, 32, .45); } 40% { box-shadow: 0 0 0 3px var(--gold), 0 0 0 10px #fff3dc, 0 0 40px 18px rgba(255, 190, 60, .9); } 100% { box-shadow: 0 0 0 3px var(--gold), 0 0 0 6px #fff3dc, 0 0 0 8px rgba(201, 52, 32, .45); } }
+
 /* Family (nivedak) */
 .fam-intro { font-size: 1.1rem; opacity: .85; margin-top: -6px; }
 .fam-group {
@@ -693,10 +771,10 @@ h2.mt { margin-top: 30px; }
 .fam-chips span::before { content: "🌸 "; font-size: .85em; }
 
 /* Downloads */
-.dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+.dl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
 .dl {
   display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 18px 10px 14px;
+  padding: 16px 6px 12px;
   text-decoration: none;
   color: var(--cream);
   border-radius: 16px;
@@ -718,16 +796,75 @@ h2.mt { margin-top: 30px; }
   box-shadow: 0 0 0 3px var(--maroon-dark), 0 0 0 5px var(--gold);
 }
 .dl b { font: 600 1.15rem "Poppins", sans-serif; color: var(--gold-light); }
-.dl small { font-size: 1rem; opacity: .9; }
+.dl small { font-size: .92rem; opacity: .9; line-height: 1.3; }
 
 /* Capture mode (used to generate the PDF and video) */
-body.capture .downloads, body.capture .puja-actions, body.capture .puja-hint, body.capture .music, body.capture #shareBtn, body.capture #calBtn { display: none !important; }
+body.capture .downloads, body.capture .puja-actions, body.capture .puja-hint, body.capture .mala-card, body.capture .lang-switch, body.capture .music, body.capture #shareBtn, body.capture #calBtn { display: none !important; }
 /* PDF printers draw boxes around gradient-clipped text, so use solid colours there */
 body.capture-pdf .shimmer { background: none; color: var(--red); }
 body.capture-pdf .card-dark h2 { background: none; color: var(--gold-light); }
 body.capture .footer { padding-bottom: 36px; }
 body.capture .countdown.static { grid-template-columns: repeat(3, 1fr); }
 body.capture .countdown.static small { font-size: 1rem; }
+
+/* WhatsApp status image (only in ?capture=status) */
+.g-status { display: none; }
+body.capture-status .g-status {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  margin-top: 12px;
+  padding: 10px 16px 8px;
+  border-radius: 16px;
+  background: rgba(30, 2, 0, .5);
+  border: 1.5px solid rgba(233, 164, 23, .55);
+  font-size: .98rem; color: var(--cream);
+}
+body.capture-status .g-status b { font-family: "Poppins", sans-serif; color: var(--gold-light); margin-right: 6px; }
+body.capture-status .g-status-invite { font-family: "Yatra One", serif; font-size: 1.15rem; color: var(--gold-light); margin-bottom: 2px; }
+body.capture-status .g-status-call { font-family: "Poppins", sans-serif; font-weight: 600; color: var(--gold-light); margin-top: 3px; font-size: .92rem; }
+body.capture-status #openBtn, body.capture-status .hint, body.capture-status .g-chant { display: none; }
+body.capture-status .gate { --m: clamp(120px, min(46vw, 22vh), 200px); }
+
+/* Language switch */
+.lang-switch {
+  position: fixed; top: 10px; left: 50%;
+  z-index: 60;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(40, 4, 2, .78);
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(4px);
+  transition: transform .35s ease, opacity .35s ease;
+}
+.lang-switch.tucked { transform: translate(-50%, -70px); opacity: 0; }
+.lang-switch button {
+  border: 0; cursor: pointer;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font: 600 .82rem "Poppins", "Kalam", sans-serif;
+  color: var(--gold-light);
+  background: transparent;
+  transition: background .2s, color .2s;
+}
+.lang-switch button[aria-pressed="true"] { background: var(--gold-grad); color: var(--maroon-dark); }
+
+/* English mode: Latin-friendly fonts (Devanagari mantras fall back to the Hindi fonts) */
+body.en { font-family: "Poppins", "Kalam", system-ui, sans-serif; }
+body.en .title, body.en h2, body.en .g-title, body.en .g-sub, body.en .sadar, body.en .venue,
+body.en .fam-title, body.en .jai, body.en .mh b, body.en .elders .fam-couple, body.en .mala-mantra,
+body.en .toast, body.en .guest {
+  font-family: "Playfair Display", "Yatra One", serif;
+}
+body.en .g-title { font-size: clamp(2.2rem, 10vw, 3.4rem); }
+body.en .title { font-size: clamp(1.7rem, 7.5vw, 2.4rem); }
+body.en .body, body.en .mh p, body.en .what, body.en .manuhar { font-size: 1rem; }
+body.en .what { font-weight: 600; }
+body.en .fam-couple { flex-wrap: wrap; font-size: clamp(.72rem, 3.2vw, .95rem); font-weight: 600; column-gap: 6px; }
+body.en .elders .fam-couple { font-size: 1.35rem; font-weight: 700; }
+body.en .puja-btn, body.en .btn { font-family: "Poppins", sans-serif; font-weight: 600; font-size: .98rem; }
+body.en .g-content .btn-gold { font-size: 1.15rem; }
 
 /* Footer + diyas */
 .footer { padding: 24px 10px 110px; }

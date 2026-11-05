@@ -13,14 +13,29 @@
   // ?capture=pdf | ?capture=video is used only when generating the PDF / video
   const capture = new URLSearchParams(location.search).get("capture");
   if (capture) document.body.classList.add("capture", "capture-" + capture);
+
   else document.body.classList.add("locked");
+
+  // ----- Language (हिंदी / English) -----
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (_) { /* storage blocked */ } },
+  };
+  const urlLang = new URLSearchParams(location.search).get("lang");
+  let lang = urlLang === "en" || urlLang === "hi" ? urlLang : capture ? "hi" : store.get("lang") === "en" ? "en" : "hi";
+  const T = (hi, en) => (lang === "en" ? en : hi);
 
   // ----- Optional guest name: ?guest=Sharma%20Parivar -----
   const guest = (new URLSearchParams(location.search).get("guest") || "").trim();
+  function renderGuest() {
+    if (!guest) return;
+    $("guestLine").textContent = T(`आदरणीय ${guest} — आपकी प्रतीक्षा रहेगी 🙏`, `Dear ${guest} — we look forward to welcoming you 🙏`);
+    const gg = $("gateGuest"); // gone once the landing page has closed
+    if (gg) gg.textContent = T(`आदरणीय ${guest}`, `Dear ${guest}`);
+  }
   if (guest) {
-    $("guestLine").textContent = `आदरणीय ${guest} — आपकी प्रतीक्षा रहेगी 🙏`;
+    renderGuest();
     $("guestLine").hidden = false;
-    $("gateGuest").textContent = `आदरणीय ${guest}`;
     $("gateGuest").hidden = false;
   }
 
@@ -366,7 +381,7 @@
         thali.classList.remove("on");
         shankh(2, 0.25);
         burstPetals(20);
-        showToast("🙏 आरती सम्पन्न — जय श्री हरि!");
+        showToast(T("🙏 आरती सम्पन्न — जय श्री हरि!", "🙏 Aarti complete — Jai Shri Hari!"));
         setTimeout(() => {
           song.volume = prevVol;
           aartiRunning = false;
@@ -406,7 +421,7 @@
     }
     if (Date.now() - lastPushpToast > 4000) {
       lastPushpToast = Date.now();
-      showToast("🌸 पुष्पांजलि अर्पित — जय श्री हरि 🙏");
+      showToast(T("🌸 पुष्पांजलि अर्पित — जय श्री हरि 🙏", "🌸 Flowers offered — Jai Shri Hari 🙏"));
     }
   }
   $("pushpBtn").addEventListener("click", () => pushpanjali(26));
@@ -458,17 +473,132 @@
     "&details=" + encodeURIComponent(details) +
     "&location=" + encodeURIComponent("ग्राम मुर्हीं");
 
-  $("waBtn").href =
-    `https://wa.me/${PHONE}?text=` +
-    encodeURIComponent(`जय श्री हरि 🙏\n${TITLE} के निमंत्रण के लिए धन्यवाद। हम अवश्य उपस्थित होंगे।`);
+  const TITLE_EN = "Shri Ekadashi Mahayagya & Vedic Anushthan";
+  function setReplyLink() {
+    $("waBtn").href =
+      `https://wa.me/${PHONE}?text=` +
+      encodeURIComponent(T(
+        `जय श्री हरि 🙏\n${TITLE} के निमंत्रण के लिए धन्यवाद। हम अवश्य उपस्थित होंगे।`,
+        `Jai Shri Hari 🙏\nThank you for the invitation to the ${TITLE_EN}. We will surely be there.`
+      ));
+  }
 
   $("shareBtn").addEventListener("click", async () => {
     const url = location.href.split("?")[0];
-    const text = `🪔 सादर आमंत्रण 🪔\n${TITLE}\n19–21 नवंबर 2026 · ग्राम मुर्हीं`;
+    const text = T(
+      `🪔 सादर आमंत्रण 🪔\n${TITLE}\n19–21 नवंबर 2026 · ग्राम मुर्हीं`,
+      `🪔 You are invited 🪔\n${TITLE_EN}\n19–21 November 2026 · Village Murhi`
+    );
     if (navigator.share) {
       try { await navigator.share({ title: TITLE, text, url }); } catch (_) { /* cancelled */ }
     } else {
       window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + url), "_blank");
     }
   });
+
+  // ----- Jap mala (108 beads) -----
+  const BEADS = 108;
+  const malaRing = $("malaRing");
+  const malaBtn = $("mala");
+  if (malaRing && malaBtn) {
+    const NS = "http://www.w3.org/2000/svg";
+    const beads = [];
+    for (let i = 0; i < BEADS; i++) {
+      const a = (i / BEADS) * Math.PI * 2;
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("cx", (Math.sin(a) * 92).toFixed(2));
+      c.setAttribute("cy", (-Math.cos(a) * 92).toFixed(2));
+      c.setAttribute("r", "2.55");
+      c.setAttribute("stroke", "#7a4a02");
+      c.setAttribute("stroke-width", ".5");
+      malaRing.appendChild(c);
+      beads.push(c);
+    }
+    let total = parseInt(store.get("japTotal") || "0", 10) || 0;
+    let doneFlash = false;
+    const countEl = $("malaCount"), roundsEl = $("malaRounds"), totalEl = $("malaTotal"), mantraEl = $("malaMantra");
+    function paint() {
+      const n = doneFlash ? BEADS : total % BEADS;
+      beads.forEach((b, i) => {
+        b.setAttribute("fill", i < n ? "url(#beadDone)" : "url(#beadGold)");
+        b.classList.toggle("cur", i === total % BEADS);
+        b.setAttribute("r", i === total % BEADS ? "3.6" : "2.55");
+      });
+      // turn the mala so the next bead sits under the pointer
+      malaRing.style.transform = `rotate(${-(total * 360) / BEADS}deg)`;
+      countEl.textContent = doneFlash ? BEADS : total % BEADS;
+      roundsEl.textContent = Math.floor(total / BEADS);
+      totalEl.textContent = total;
+    }
+    function chant() {
+      total++;
+      store.set("japTotal", String(total));
+      const om = document.createElement("span");
+      om.className = "om-float";
+      om.textContent = "ॐ";
+      om.style.setProperty("--dx", Math.random() * 60 - 30 + "px");
+      malaBtn.appendChild(om);
+      setTimeout(() => om.remove(), 1250);
+      mantraEl.classList.remove("pop"); void mantraEl.offsetWidth; mantraEl.classList.add("pop");
+      setTimeout(() => mantraEl.classList.remove("pop"), 160);
+      if (total % BEADS === 0) {
+        doneFlash = true;
+        malaBtn.classList.remove("done"); void malaBtn.offsetWidth; malaBtn.classList.add("done");
+        bell(620, 0.35);
+        setTimeout(() => bell(740, 0.28), 380);
+        ringBells();
+        burstPetals(18);
+        showToast(T(`🙏 एक माला पूर्ण — जय श्री हरि! (${total / BEADS})`, `🙏 One mala complete — Jai Shri Hari! (${total / BEADS})`));
+        setTimeout(() => { doneFlash = false; paint(); }, 1100);
+      } else {
+        bell(1760, 0.045); // soft bead click
+      }
+      paint();
+    }
+    malaBtn.addEventListener("click", chant);
+    $("malaReset").addEventListener("click", () => {
+      total = 0;
+      store.set("japTotal", "0");
+      paint();
+    });
+    paint();
+  }
+
+  // ----- Apply language -----
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.body.classList.toggle("en", lang === "en");
+    document.querySelectorAll("[data-en]").forEach((el) => {
+      if (el.dataset.hi === undefined) el.dataset.hi = el.innerHTML;
+      el.innerHTML = lang === "en" ? el.dataset.en : el.dataset.hi;
+    });
+    document.querySelectorAll("[data-en-label]").forEach((el) => {
+      if (el.dataset.hiLabel === undefined) el.dataset.hiLabel = el.getAttribute("aria-label") || "";
+      el.setAttribute("aria-label", lang === "en" ? el.dataset.enLabel : el.dataset.hiLabel);
+    });
+    document.title = T(
+      "सादर आमंत्रण · श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान कार्यक्रम",
+      "You Are Invited · Shri Ekadashi Mahayagya & Vedic Anushthan"
+    );
+    document.querySelectorAll("#langSwitch button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    renderGuest();
+    setReplyLink();
+  }
+  document.querySelectorAll("#langSwitch button").forEach((b) =>
+    b.addEventListener("click", () => {
+      if (lang === b.dataset.lang) return;
+      lang = b.dataset.lang;
+      store.set("lang", lang);
+      applyLang();
+    })
+  );
+  applyLang();
+
+  // tuck the language switch away while scrolling down, bring it back on scroll up
+  let lastY = 0;
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    $("langSwitch").classList.toggle("tucked", y > 140 && y > lastY);
+    lastY = y;
+  }, { passive: true });
 })();

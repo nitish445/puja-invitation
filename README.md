@@ -14,7 +14,10 @@ A one-page digital invitation with background music. It's plain HTML/CSS/JS, so 
 - Music on/off button
 - **Virtual आरती**: a lit aarti plate circles Lord Vishnu in the traditional order (feet ×4, navel ×2, face ×1, whole body ×3) with conch and bell sounds
 - **पुष्पांजलि**: shower flowers on Lord Vishnu with the button or by tapping his picture
-- **Download section** with the invitation as a **PDF** (`assets/invitation.pdf`) and a **video with music** (`assets/invitation.mp4`)
+- **जप माला**: tap to chant on a 108-bead mala, with completed rounds counted
+- **एकादशी महात्म्य**: the significance of Ekadashi, the yagya and godaan
+- **हिंदी / English** switch (remembered per visitor; `?lang=en` opens in English)
+- **Download section** with the invitation as a **PDF** (`assets/invitation.pdf`), a **video with music** (`assets/invitation.mp4`) and a **WhatsApp status image** (`assets/whatsapp-status.jpg`)
 
 ## Files
 - `index.html` — content (all text is here)
@@ -31,6 +34,7 @@ If you change the text, rebuild the downloads (needs Node + Playwright, ffmpeg a
 ```bash
 node tools/make-pdf.js
 node tools/make-video.js
+node tools/make-status.js
 ```
 
 ## Publish free with GitHub Pages

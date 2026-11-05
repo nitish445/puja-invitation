@@ -23,7 +23,7 @@ const { chromium } = require("playwright");
   const cuts = await page.evaluate(() => {
     const top = (sel) => Math.round(document.querySelector(sel).getBoundingClientRect().top + scrollY - 14);
     const end = Math.ceil(document.documentElement.scrollHeight);
-    return [0, top(".card-dark"), top(".card:has(.venue)"), top(".family"), end];
+    return [0, top(".mahatmya"), top(".card-dark"), top(".card:has(.venue)"), top(".family"), end];
   });
   const images = [];
   for (let i = 0; i < cuts.length - 1; i++) {

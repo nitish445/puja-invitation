@@ -22,14 +22,16 @@ const SCROLL_PLAN = [
   // [startTime, endTime, target section selector]
   [0, 0, null],
   [7.0, 8.6, ".hero + .card"],
-  [13.6, 15.0, ".card-dark"],
-  [17.5, 19.0, ".timeline"],
-  [24.0, 25.5, ".card:has(.venue)"],
-  [29.5, 31.0, ".family"],
-  [35.0, 36.6, ".family .fam-group:nth-of-type(4)"],
-  [41.0, 42.6, "END"],
+  [13.0, 14.6, ".mahatmya"],
+  [19.0, 20.6, ".mahatmya .mh:nth-child(3)"],
+  [25.0, 26.4, ".card-dark"],
+  [29.0, 30.5, ".timeline"],
+  [35.5, 37.0, ".card:has(.venue)"],
+  [41.0, 42.5, ".family"],
+  [46.5, 48.1, ".family .fam-group:nth-of-type(4)"],
+  [52.5, 54.1, "END"],
 ];
-const DURATION = 45.5;
+const DURATION = 57.0;
 
 (async () => {
   const browser = await chromium.launch();
