@@ -4,7 +4,7 @@ A one-page digital invitation with background music. It's plain HTML/CSS/JS, so 
 
 - **Dates:** 19–21 November 2026
 - **Venue:** ग्राम मुर्हीं, हमारी जन्मभूमि
-- **Contact:** +91 95727 74629
+- **Contact:** +91 95727 74629, +91 98010 36864
 
 ## Features
 - Opening screen. Tapping it starts the song, because browsers block autoplay.

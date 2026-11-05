@@ -635,7 +635,18 @@ h2.mt { margin-top: 30px; }
 }
 .venue { font-family: "Yatra One", serif; font-size: 1.8rem; color: var(--red); }
 .venue-sub { font-size: 1.2rem; color: var(--maroon); }
-.phone a { font: 600 1.35rem "Poppins", sans-serif; color: var(--red); text-decoration: none; }
+.phone { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.phone a {
+  display: inline-block;
+  padding: 8px 20px;
+  font: 600 1.25rem "Poppins", sans-serif; color: var(--red); text-decoration: none;
+  background: rgba(255, 255, 255, .7);
+  border: 1.5px solid rgba(201, 52, 32, .4);
+  border-radius: 999px;
+  box-shadow: 0 3px 8px rgba(125, 26, 16, .1);
+}
+.phone a:hover { background: #fff; }
+.phone-hint { font-size: .92rem; opacity: .75; margin-top: 6px; }
 
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
 
@@ -881,7 +892,8 @@ body.capture-status .g-status {
 }
 body.capture-status .g-status b { font-family: "Poppins", sans-serif; color: var(--gold-light); margin-right: 6px; }
 body.capture-status .g-status-invite { font-family: "Yatra One", serif; font-size: 1.15rem; color: var(--gold-light); margin-bottom: 2px; }
-body.capture-status .g-status-call { font-family: "Poppins", sans-serif; font-weight: 600; color: var(--gold-light); margin-top: 3px; font-size: .92rem; }
+body.capture-status .g-status-call { font-family: "Poppins", sans-serif; font-weight: 600; color: var(--gold-light); margin-top: 3px; font-size: .86rem; }
+body.capture-status .g-status-call i { font-style: normal; color: var(--gold); margin: 0 4px; font-size: .8em; }
 body.capture-status #openBtn, body.capture-status .hint, body.capture-status .g-chant { display: none; }
 body.capture-status .gate { --m: clamp(120px, min(46vw, 22vh), 200px); }
 
