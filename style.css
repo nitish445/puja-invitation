@@ -621,6 +621,7 @@ h2.mt { margin-top: 30px; }
 }
 .day { font-size: .95rem; color: var(--maroon); opacity: .8; }
 .what { font-size: 1.18rem; font-weight: 700; color: var(--red); line-height: 1.45; }
+.what .time { white-space: nowrap; font-family: "Poppins", sans-serif; font-size: .82em; font-weight: 600; color: var(--maroon); }
 
 /* Venue */
 .venue-badge {
