@@ -15,6 +15,8 @@ A one-page digital invitation with background music. It's plain HTML/CSS/JS, so 
 - **Virtual आरती**: a lit aarti plate circles Lord Vishnu in the traditional order (feet ×4, navel ×2, face ×1, whole body ×3) with conch and bell sounds
 - **पुष्पांजलि**: shower flowers on Lord Vishnu with the button or by tapping his picture
 - **जप माला**: tap to chant on a 108-bead mala, with completed rounds counted
+- **दीप जलाएँ**: light 11 diyas one by one to complete a deepmala
+- **आरती के बोल**: full "ॐ जय जगदीश हरे" lyrics (Roman letters in English mode); while open, the aarti keeps circling until stopped
 - **एकादशी महात्म्य**: the significance of Ekadashi, the yagya and godaan
 - **हिंदी / English** switch (remembered per visitor; `?lang=en` opens in English)
 - **Download section** with the invitation as a **PDF** (`assets/invitation.pdf`), a **video with music** (`assets/invitation.mp4`) and a **WhatsApp status image** (`assets/whatsapp-status.jpg`)

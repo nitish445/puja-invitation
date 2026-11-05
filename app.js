@@ -24,6 +24,11 @@
   const urlLang = new URLSearchParams(location.search).get("lang");
   let lang = urlLang === "en" || urlLang === "hi" ? urlLang : capture ? "hi" : store.get("lang") === "en" ? "en" : "hi";
   const T = (hi, en) => (lang === "en" ? en : hi);
+  function setLabel(el, hi, en) {
+    el.dataset.hi = hi;
+    el.dataset.en = en;
+    el.innerHTML = T(hi, en);
+  }
 
   // ----- Optional guest name: ?guest=Sharma%20Parivar -----
   const guest = (new URLSearchParams(location.search).get("guest") || "").trim();
@@ -346,15 +351,36 @@
     return prev;
   }
   let aartiRunning = false;
+  let aartiLoop = false;   // lyrics open: keep circling until stopped
+  let aartiStop = false;
+  const lyricsBtn = $("lyricsBtn");
+  const lyrics = $("aartiLyrics");
+  const AARTI_HI = "🪔 आरती करें", AARTI_EN = "🪔 Perform Aarti";
+  lyricsBtn.addEventListener("click", () => {
+    const open = lyrics.hidden;
+    lyrics.hidden = !open;
+    lyricsBtn.setAttribute("aria-expanded", String(open));
+    aartiLoop = open;
+    if (open) {
+      lyrics.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+      if (!aartiRunning) aartiBtn.click();
+    }
+  });
   aartiBtn.addEventListener("click", () => {
-    if (aartiRunning) return;
+    if (aartiRunning) {
+      // running in sing-along mode: this button stops it
+      if (aartiLoop) { aartiStop = true; aartiBtn.disabled = true; }
+      return;
+    }
     aartiRunning = true;
-    aartiBtn.disabled = true;
+    aartiStop = false;
+    if (aartiLoop) setLabel(aartiBtn, "⏹ आरती रोकें", "⏹ Stop Aarti");
+    else aartiBtn.disabled = true;
     const prevVol = song.volume;
     song.volume = Math.min(prevVol, 0.3);
     shankh();
     thali.classList.add("on");
-    const t0 = performance.now();
+    let t0 = performance.now();
     let lastSpark = 0, lastBell = 0, bellNo = 0;
     function step(now) {
       const t = (now - t0) / 1000;
@@ -371,13 +397,17 @@
         offerings.appendChild(s);
         setTimeout(() => s.remove(), 1650);
       }
-      if (t > 1.2 && t - lastBell > 0.55 && t < aartiTotal) {
+      if (t > 1.2 && t - lastBell > (aartiLoop ? 1.1 : 0.55) && t < aartiTotal) {
         lastBell = t;
         bell(bellNo++ % 2 ? 1180 : 990, 0.16);
         if (bellNo % 3 === 0) ringBells();
       }
       if (t < aartiTotal + 0.3) requestAnimationFrame(step);
-      else {
+      else if (aartiLoop && !aartiStop) {
+        // another round of the aarti
+        t0 = now; lastBell = 0;
+        requestAnimationFrame(step);
+      } else {
         thali.classList.remove("on");
         shankh(2, 0.25);
         burstPetals(20);
@@ -386,6 +416,7 @@
           song.volume = prevVol;
           aartiRunning = false;
           aartiBtn.disabled = false;
+          setLabel(aartiBtn, AARTI_HI, AARTI_EN);
         }, 1200);
       }
     }
@@ -562,6 +593,49 @@
       paint();
     });
     paint();
+  }
+
+  // ----- Deep jalayen (11 diyas) -----
+  const dps = [...document.querySelectorAll("#deepmala .dp")];
+  const diyaBtn = $("diyaBtn");
+  if (dps.length && diyaBtn) {
+    const DIYAS = dps.length;
+    let lit = Math.min(DIYAS, parseInt(store.get("diyaLit") || "0", 10) || 0);
+    let diyaTotal = parseInt(store.get("diyaTotal") || "0", 10) || 0;
+    function paintDiyas() {
+      dps.forEach((d, i) => d.classList.toggle("lit", i < lit));
+      $("deepmala").classList.toggle("full", lit >= DIYAS);
+      $("dpCount").textContent = lit;
+      $("dpTotal").textContent = diyaTotal;
+      if (lit >= DIYAS) setLabel(diyaBtn, "🔁 नई दीपमाला सजाएँ", "🔁 Light a New Deepmala");
+      else setLabel(diyaBtn, "🪔 दीप जलाएँ", "🪔 Light a Diya");
+    }
+    function lightDiya() {
+      if (lit >= DIYAS) { // start a fresh deepmala
+        lit = 0;
+        store.set("diyaLit", "0");
+        paintDiyas();
+        return;
+      }
+      lit++;
+      diyaTotal++;
+      store.set("diyaLit", String(lit));
+      store.set("diyaTotal", String(diyaTotal));
+      paintDiyas();
+      if (lit >= DIYAS) {
+        bell(620, 0.3);
+        setTimeout(() => bell(740, 0.25), 380);
+        ringBells();
+        burstPetals(22);
+        showToast(T("✨ दीपमाला पूर्ण — जय श्री हरि! 🙏", "✨ Deepmala complete — Jai Shri Hari! 🙏"));
+      } else {
+        bell(1320, 0.1);
+        showToast(T("🪔 आपने दीप प्रज्वलित किया 🙏", "🪔 You lit a diya 🙏"));
+      }
+    }
+    diyaBtn.addEventListener("click", lightDiya);
+    dps.forEach((d) => d.addEventListener("click", () => { if (!d.classList.contains("lit")) lightDiya(); }));
+    paintDiyas();
   }
 
   // ----- Apply language -----
