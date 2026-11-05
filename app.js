@@ -2,7 +2,7 @@
   // Puja starts 19 Nov 2026 (IST)
   const START = new Date("2026-11-19T00:00:00+05:30");
   const PHONE = "919572774629";
-  const TITLE = "श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान कार्यक्रम";
+  const TITLE = "एकादशी उद्यापन एवं अखण्ड हरिकीर्तन";
 
   const $ = (id) => document.getElementById(id);
   const gate = $("gate");
@@ -493,9 +493,9 @@
 
   // ----- Links -----
   const details =
-    "19 नवंबर – वेदी निर्माण\n" +
-    "20 नवंबर – वेदी आवाहन एवं पूजन, कथा एवं धार्मिक अनुष्ठान\n" +
-    "21 नवंबर – वेदी पूजन, गोदान, हवन एवं पूर्णाहुति, हरिनाम अमृत भोज (1 बजे से)\n" +
+    "19 नवंबर – वेदी निर्माण एवं अखण्ड हरिकीर्तन\n" +
+    "20 नवंबर – वेदी आवाहन पूजन एवं एकादशी महात्मकथा\n" +
+    "21 नवंबर – वेदी पूजन, हवन पूर्णाहुति एवं हरिनाम अमृत भोज (1 बजे से)\n" +
     "संपर्क: +91 95727 74629";
   $("calBtn").href =
     "https://calendar.google.com/calendar/render?action=TEMPLATE" +
@@ -504,7 +504,7 @@
     "&details=" + encodeURIComponent(details) +
     "&location=" + encodeURIComponent("ग्राम मुर्हीं");
 
-  const TITLE_EN = "Shri Ekadashi Mahayagya & Vedic Anushthan";
+  const TITLE_EN = "Ekadashi Udyapan & Akhand Harikirtan";
   function setReplyLink() {
     $("waBtn").href =
       `https://wa.me/${PHONE}?text=` +
@@ -651,8 +651,8 @@
       el.setAttribute("aria-label", lang === "en" ? el.dataset.enLabel : el.dataset.hiLabel);
     });
     document.title = T(
-      "सादर आमंत्रण · श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान कार्यक्रम",
-      "You Are Invited · Shri Ekadashi Mahayagya & Vedic Anushthan"
+      "सादर आमंत्रण · एकादशी उद्यापन एवं अखण्ड हरिकीर्तन",
+      "You Are Invited · Ekadashi Udyapan & Akhand Harikirtan"
     );
     document.querySelectorAll("#langSwitch button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
     renderGuest();

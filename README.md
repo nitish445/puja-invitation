@@ -1,4 +1,4 @@
-# 🪔 Puja Invitation — श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान कार्यक्रम
+# 🪔 Puja Invitation — एकादशी उद्यापन एवं अखण्ड हरिकीर्तन
 
 A one-page digital invitation with background music. It's plain HTML/CSS/JS, so it needs no build step.
 
@@ -17,7 +17,7 @@ A one-page digital invitation with background music. It's plain HTML/CSS/JS, so 
 - **जप माला**: tap to chant on a 108-bead mala, with completed rounds counted
 - **दीप जलाएँ**: light 11 diyas one by one to complete a deepmala
 - **आरती के बोल**: full "ॐ जय जगदीश हरे" lyrics (Roman letters in English mode); while open, the aarti keeps circling until stopped
-- **एकादशी महात्म्य**: the significance of Ekadashi, the yagya and godaan
+- **एकादशी महात्म्य**: the significance of Ekadashi, Akhand Harikirtan and Udyapan
 - **हिंदी / English** switch (remembered per visitor; `?lang=en` opens in English)
 - **Download section** with the invitation as a **PDF** (`assets/invitation.pdf`), a **video with music** (`assets/invitation.mp4`) and a **WhatsApp status image** (`assets/whatsapp-status.jpg`)
 

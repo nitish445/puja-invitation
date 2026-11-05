@@ -40,7 +40,7 @@ from PIL import Image
 out, files = sys.argv[1], sys.argv[2:]
 pages = [Image.open(f).convert("RGB") for f in files]
 pages[0].save(out, "PDF", resolution=216, save_all=True, append_images=pages[1:], quality=90,
-              title="श्री एकादशी महायज्ञ एवं वैदिक अनुष्ठान कार्यक्रम - सादर आमंत्रण", author="Nitish Kumar")
+              title="एकादशी उद्यापन एवं अखण्ड हरिकीर्तन - सादर आमंत्रण", author="Nitish Kumar")
 `, out, ...images]);
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log("PDF written:", out, "pages at", cuts.join(", "));
